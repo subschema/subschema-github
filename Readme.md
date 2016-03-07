@@ -1,5 +1,10 @@
 subschema-github
 ===
+*In Development*
+This project is meant to implement gihub oauth so that subschema-demo can 
+initialize and create github repos from projects.  Its an experiment. 
+ 
+Contributions welcome.
 
 
 ##Demo
@@ -25,9 +30,9 @@ Or run it
 
  import React, {Component} from 'react';
  import Subschema, {loader, Form} from 'Subschema';
- import subschema-github from 'subschema-github';
+ import subschemaGithub from 'subschema-github';
  
- loader.addLoader(subschema-github);
+ loader.addLoader(subschemaGithub);
  
  //A simple Schema for this demo.
  var schema = {
