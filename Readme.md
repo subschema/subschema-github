@@ -5,10 +5,11 @@ This project is meant to implement gihub oauth so that subschema-demo can
 initialize and create github repos from projects.  Its an experiment. 
  
 Contributions welcome.
-
+##Notes
+auth server =>https://auth-server.herokuapp.com/
 
 ##Demo
-See it in action [here]()
+See it in action [here](https://subschema.github.io/subschema-github)
 
 Or run it 
 

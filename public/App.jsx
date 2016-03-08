@@ -1,57 +1,54 @@
 "use strict";
 import React, {Component} from "react";
-import Subschema,{Form, loader, valueManager, loaderFactory} from "Subschema";
+import Subschema,{Form, loader, ValueManager, loaderFactory} from "Subschema";
 import hello from 'hellojs';
 import Login from './Login.jsx';
-var schema = {
+import LoginStyle from './Login.less';
+import GithubProcessor from './GithubProcessor';
+
+loader.addType({Login});
+loader.addStyle({Login: LoginStyle});
+loader.addProcessor({GithubProcessor});
+
+const valueManager = ValueManager();
+valueManager.addListener('login', (v)=> {
+    console.log('login', v);
+});
+
+const schema = {
     "schema": {
-        "title": {
-            "type": "Select",
-            "options": [
-                "Mr",
-                "Mrs",
-                "Ms"
-            ]
+        "login": {
+            "type": "Login",
+            "template": false
         },
-        "name": {
-            "type": "Text",
-            "validators": [
-                "required"
-            ]
+        "organizations": {
+            "type": "Autocomplete",
+            "processor": "GithubProcessor",
+            "url": "/user/orgs"
         },
-        "age": {
-            "type": "Number"
+        "repositories": {
+            "type": "Autocomplete",
+            "processor": "GithubProcessor",
+            "url": "/user/repos"
         }
     },
     "fieldsets": [
         {
-            "legend": "Name",
-            "fields": "title, name, age",
-            "buttons": [
-                {
-                    "label": "Cancel",
-                    "action": "cancel",
-                    "buttonClass": "btn"
-                },
-                {
-                    "label": "Submit",
-                    "action": "submit",
-                    "buttonClass": "btn btn-primary"
-                }
-            ]
+            "fields": "login"
+        },
+        {
+            "legend": "Github Info",
+            fields: ["organizations", "repositories"]
         }
     ]
 };
-var value = {};
 
 
 export default class App extends Component {
     render() {
         return <div>
-            <h3>subschema-github</h3>
-            <p></p>
-            <Login/>
-            <Form schema={schema} value={value}/>;
+            <p>Subschema Github Integration</p>
+            <Form schema={schema} loader={loader} valueManager={valueManager}/>
         </div>
     }
 }

@@ -25,7 +25,8 @@ var config = {
         alias: {
             'fbjs': join('node_modules/fbjs'),
             'react': join('node_modules/react'),
-            'Subschema': join('node_modules/subschema/dist/subschema-noreact.js'),
+            //   'Subschema': join('node_modules/subschema/dist/subschema-noreact.js'),
+            'Subschema': join('../subschema/src/index.jsx'),
             'subschema-github': isTestDist ? join('dist/index.js') : join('src/index.js')
         }
     },
@@ -34,15 +35,17 @@ var config = {
         reasons: true
     },
     module: {
+
         loaders: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules/,
+                exclude: /node_modules(?!(\/subschema-injection))/,
                 //do this to prevent babel from translating everything.
                 loader: 'babel',
                 include: [
                     join('src'),
                     join('public'),
+                    /subschema/,
                     isKarma ? join('test') : join('no_such_dir')
                 ]
             },
@@ -57,11 +60,11 @@ var config = {
             },
             {
                 test: /\.css$/,
-                loader: 'style!css!' + AUTOPREFIXER_LOADER
+                loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
             },
             {
                 test: /\.less$/,
-                loader: 'style!css!less!' + AUTOPREFIXER_LOADER
+                loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less'
             }]
 
     },

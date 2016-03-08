@@ -39,6 +39,7 @@
     "react-dom": "^0.14.6",
     "react-transform-catch-errors": "^1.0.1",
     "react-transform-hmr": "^1.0.1",
+    "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.0",
     "subschema": "^1.0",
     "url-loader": "^0.5.7",
@@ -50,7 +51,7 @@
     "test": "NODE_ENV=test karma start --single-run --browsers Firefox",
     "test-dist": "npm run dist && NODE_ENV=test karma start --single-run --browsers Firefox",
     "hot": "NODE_ENV=development webpack-dev-server --hot --inline --config ./webpack.config.js --entry ./public/index.jsx --output-filename=app.entry.js --port=8123",
-    "demo": "NODE_ENV=production webpack -p  --display-modules --output-path .build --entry ./public/index.jsx --output-filename=app.[hash].js --config ./webpack.config.js",
+    "demo": "NODE_ENV=production webpack --display-modules --output-path .build --entry ./public/index.jsx --output-filename=app.[hash].js --config ./webpack.config.js",
     "dist": "NODE_ENV=production webpack --display-modules -p --output-path dist --entry ./src/index.js --output-library-target=umd --output-library-name subschema-github --output-filename=index.js --config ./webpack.config.js",
     "prepublish": "npm run test-dist"
   }

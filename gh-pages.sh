@@ -32,6 +32,7 @@ function build(){
    rm $GH_DIR/*
    cp ./.build/* $GH_DIR && \
    sed "s/\"app\(\.entry\)\{0,1\}\.js\"/\"app.${HASH}.js\"/" ./public/index.html > $GH_DIR/index.html
+   cp ./public/redirect.html $GH_DIR
 }
 
 function init_git() {
