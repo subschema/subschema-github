@@ -38,6 +38,11 @@ const schema = {
         },
         {
             "legend": "Github Info",
+            "conditional": {
+                "listen": "login",
+                "operator": "truthy",
+                "transition": "rollUp"
+            },
             fields: ["organizations", "repositories"]
         }
     ]
