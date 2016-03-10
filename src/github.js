@@ -4,8 +4,8 @@ import hellojs from 'hellojs';
 const {location:{hostname}} = window;
 
 const redirect_url = ({
-    'localhost.subschema.com': '/redirect.hml',
-    'subschema.github.io': '/subschema-github/redirect.html'
+    'localhost.subschema.com': '',
+    'subschema.github.io': '/subschema-github/'
 })[hostname];
 
 const hello = ({

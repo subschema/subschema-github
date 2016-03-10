@@ -1,6 +1,6 @@
 "use strict";
 import React, {Component} from 'react';
-import {PropTypes} from 'Subschema';
+import PropTypes from 'subschema-prop-types';
 import github, {isAuth} from './github';
 
 const icon = <i className="fa fa-github"/>;
@@ -91,7 +91,7 @@ export default class Login extends Component {
         }
         if (this.state.error) {
             return <div className={this.props.hasErrorClass}>
-                <span className={this.props.errorMessageClass}>{this.state.error}</span>
+                <span className={this.props.errorMessageClass}>{this.state.error.message}</span>
                 {this.renderLogin()}
             </div>
         }

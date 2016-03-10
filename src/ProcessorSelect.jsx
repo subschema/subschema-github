@@ -1,8 +1,8 @@
 "use strict";
 
 import React, {Component} from 'react';
-import {PropTypes, types} from 'Subschema';
-
+import {types} from 'Subschema';
+import PropTypes from 'subschema-prop-types';
 const {Select} = types;
 
 export default class ProcessorSelect extends Component {
