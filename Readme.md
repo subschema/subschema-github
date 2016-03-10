@@ -1,12 +1,13 @@
 subschema-github
 ===
 *In Development*
-This project is meant to implement gihub oauth so that subschema-demo can 
-initialize and create github repos from projects.  Its an experiment. 
+This project is meant to implement github oauth so that subschema-demo can 
+initialize and create github repos from projects.  
  
 Contributions welcome.
 ##Notes
 auth server =>https://auth-server.herokuapp.com/
+github hellojs demo = http://adodson.com/hello.js/demos/github.html
 
 ##Demo
 See it in action [here](https://subschema.github.io/subschema-github)
@@ -105,7 +106,6 @@ const schema = {
  
      render() {
          return <div>
-             <h3></h3>
              <Form schema={schema}/>
          </div>
      }

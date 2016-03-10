@@ -18,7 +18,8 @@ export default class ProcessorSelect extends Component {
 
     };
     static defaultProps = {
-        loadingMessage: 'Loading...'
+        loadingMessage: 'Loading...',
+        clearOnDataChange: true
     };
 
     state = {
