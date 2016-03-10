@@ -27,7 +27,8 @@ var config = {
             'react': join('node_modules/react'),
             //   'Subschema': join('node_modules/subschema/dist/subschema-noreact.js'),
             'Subschema': join('../subschema/src/index.jsx'),
-            'subschema-github': isTestDist ? join('dist/index.js') : join('src/index.js')
+            'subschema-github': isTestDist ? join('dist/index.js') : join('src/index.js'),
+            'subschema-prop-types': join('node_modules/subschema-prop-types')
         }
     },
     stats: {

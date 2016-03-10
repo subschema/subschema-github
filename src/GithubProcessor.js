@@ -16,14 +16,16 @@ function filter(orgs, value, cb) {
 
 const api = {
     fetch(url, value, component, cb) {
+        //url/component based cache;
         const data = map.get(component);
-        if (!data) {
+        if (!data || data.url != url) {
             gh().api(url).then(function (resp) {
-                map.set(component, resp.data);
+                resp.url = url;
+                map.set(component, resp);
                 filter(resp.data, value, cb);
             });
         } else {
-            filter(data, value, cb);
+            filter(data.data, value, cb);
         }
     },
     /**Value returns the value of the object, not necessarily whats in the input box**/

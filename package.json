@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "",
-  "dependencies": {},
+  "dependencies": {
+    "subschema-prop-types": "^1.0.0"
+  },
   "repository": "",
   "publishConfig": {
     "registry": ""

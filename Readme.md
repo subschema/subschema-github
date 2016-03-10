@@ -31,50 +31,75 @@ Or run it
 
  import React, {Component} from 'react';
  import Subschema, {loader, Form} from 'Subschema';
- import subschemaGithub from 'subschema-github';
+ import subschemaGithub, {github} from 'subschema-github';
+ 
+ //setup hellojs for github.
+ You can go to https://auth-server.herokuapp.com/#signin to get a proxy.
+
+ github.settings.hello = {
+        hello:{
+            'subschema.github.io': {github: '5123a-your-app-key'}
+        },
+        network: {
+            oauth_proxy: 'https://auth-server.herokuapp.com/proxy',
+            redirect_url:'/subschema-github/redirect.html'
+        }
+ }
  
  loader.addLoader(subschemaGithub);
  
  //A simple Schema for this demo.
- var schema = {
-  "schema": {
-    "title": {
-      "type": "Select",
-      "options": [
-        "Mr",
-        "Mrs",
-        "Ms"
-      ]
-    },
-    "name": {
-      "type": "Text",
-      "validators": [
-        "required"
-      ]
-    },
-    "age": {
-      "type": "Number"
-    }
-  },
-  "fieldsets": [
-    {
-      "legend": "Name",
-      "fields": "title, name, age",
-      "buttons": [
-        {
-          "label": "Cancel",
-          "action": "cancel",
-          "buttonClass": "btn"
+ 
+const schema = {
+    "schema": {
+        "login": {
+            "type": "Login",
+            "template": false
         },
-        {
-          "label": "Submit",
-          "action": "submit",
-          "buttonClass": "btn btn-primary"
+        "organization": {
+            "type": "ProcessorSelect",
+            "processor": "GithubProcessor",
+            "url": "/user/orgs",
+            "placeholder": "Select an organization",
+            "validators": ["required"],
+            "loadingMessage": "Loading Organizations",
+            "conditional": {
+                "listen": "login",
+                "operator": "truthy",
+                "transition": "rollUp"
+            }
+        },
+        "repositories": {
+            "type": "ProcessorSelect",
+            "processor": "GithubProcessor",
+            "url": "/orgs/{organization}/repos",
+            "placeholder": "Select a Repo"
+        },
+        "members": {
+            "type": "ProcessorSelect",
+            "processor": "GithubProcessor",
+            "url": "/orgs/{organization}/members",
+            "placeholder": "Select a member"
         }
-      ]
-    }
-  ]
-}
+    },
+    "fieldsets": [
+        {
+            "legend": "Login and Select organization",
+            "fields": "login, organization"
+        },
+
+        {
+            "legend": "Github Info for \"{organization}\"",
+            "template": "ExpressionLegendTemplate",
+            "conditional": {
+                "listen": "organization",
+                "operator": "truthy",
+                "transition": "rollUp"
+            },
+            fields: ["repositories", "members"]
+        }
+    ]
+};
  
  export default class App extends Component {
  

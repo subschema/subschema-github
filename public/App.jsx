@@ -1,19 +1,14 @@
 "use strict";
 import React, {Component} from "react";
-import Subschema,{Form, loader, ValueManager, loaderFactory} from "Subschema";
-import hello from 'hellojs';
-import Login from './Login.jsx';
-import LoginStyle from './Login.less';
-import GithubProcessor from './GithubProcessor';
+import Subschema,{Form, PropTypes, loader, ValueManager, loaderFactory} from "Subschema";
+import subschemaGithub from 'subschema-github';
 
-loader.addType({Login});
-loader.addStyle({Login: LoginStyle});
-loader.addProcessor({GithubProcessor});
+loader.addLoader(subschemaGithub);
 
 const valueManager = ValueManager();
-valueManager.addListener('login', (v)=> {
-    console.log('login', v);
-});
+valueManager.addListener(null, (v)=> {
+    console.log('change', v);
+}, {});
 
 const schema = {
     "schema": {
@@ -21,29 +16,47 @@ const schema = {
             "type": "Login",
             "template": false
         },
-        "organizations": {
-            "type": "Autocomplete",
+        "organization": {
+            "type": "ProcessorSelect",
             "processor": "GithubProcessor",
-            "url": "/user/orgs"
-        },
-        "repositories": {
-            "type": "Autocomplete",
-            "processor": "GithubProcessor",
-            "url": "/user/repos"
-        }
-    },
-    "fieldsets": [
-        {
-            "fields": "login"
-        },
-        {
-            "legend": "Github Info",
+            "url": "/user/orgs",
+            "placeholder": "Select an organization",
+            "validators": ["required"],
+            "loadingMessage": "Loading Organizations",
             "conditional": {
                 "listen": "login",
                 "operator": "truthy",
                 "transition": "rollUp"
+            }
+        },
+        "repositories": {
+            "type": "ProcessorSelect",
+            "processor": "GithubProcessor",
+            "url": "/orgs/{organization}/repos",
+            "placeholder": "Select a Repo"
+        },
+        "members": {
+            "type": "ProcessorSelect",
+            "processor": "GithubProcessor",
+            "url": "/orgs/{organization}/members",
+            "placeholder": "Select a member"
+        }
+    },
+    "fieldsets": [
+        {
+            "legend": "Login and Select organization",
+            "fields": "login, organization"
+        },
+
+        {
+            "legend": "Github Info for \"{organization}\"",
+            "template": "ExpressionLegendTemplate",
+            "conditional": {
+                "listen": "organization",
+                "operator": "truthy",
+                "transition": "rollUp"
             },
-            fields: ["organizations", "repositories"]
+            fields: ["repositories", "members"]
         }
     ]
 };
@@ -51,9 +64,6 @@ const schema = {
 
 export default class App extends Component {
     render() {
-        return <div>
-            <p>Subschema Github Integration</p>
-            <Form schema={schema} loader={loader} valueManager={valueManager}/>
-        </div>
+        return <Form schema={schema} loader={loader} valueManager={valueManager}/>
     }
 }
