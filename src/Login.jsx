@@ -91,8 +91,8 @@ export default class Login extends Component {
         }
         if (this.state.error) {
             return <div className={this.props.hasErrorClass}>
-                <span className={this.props.errorMessageClass}>{this.state.error.message}</span>
                 {this.renderLogin()}
+                <div className={this.props.errorMessageClass}>{this.state.error.message}</div>
             </div>
         }
         return this.props.login ? this.renderMe() : this.renderLogin();

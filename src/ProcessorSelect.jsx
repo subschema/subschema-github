@@ -1,9 +1,7 @@
 "use strict";
 
 import React, {Component} from 'react';
-import {types} from 'Subschema';
 import PropTypes from 'subschema-prop-types';
-const {Select} = types;
 
 export default class ProcessorSelect extends Component {
 
@@ -14,12 +12,14 @@ export default class ProcessorSelect extends Component {
         placeholder: PropTypes.string,
         loadingMessage: PropTypes.string,
         onChange: PropTypes.valueEvent,
-        clearOnDataChange: PropTypes.bool
+        clearOnDataChange: PropTypes.bool,
+        Select: PropTypes.type
 
     };
     static defaultProps = {
         loadingMessage: 'Loading...',
-        clearOnDataChange: true
+        clearOnDataChange: true,
+        Select: 'Select'
     };
 
     state = {
@@ -57,7 +57,7 @@ export default class ProcessorSelect extends Component {
     };
 
     render() {
-        const {url, processor, loadingMessage, placeholder, ...props} = this.props;
+        const {Select, url, processor, loadingMessage, placeholder, ...props} = this.props;
         return <Select options={this.state.options} placeholder={this.state.loading} {...props}/>
     }
 
