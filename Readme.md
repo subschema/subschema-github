@@ -10,7 +10,7 @@ auth server =>https://auth-server.herokuapp.com/
 github hellojs demo = http://adodson.com/hello.js/demos/github.html
 
 ##Demo
-See it in action [here](https://subschema.github.io/subschema-github)
+See it in action [here](https://subschema.github.io/subschema-github/)
 
 Or run it 
 
